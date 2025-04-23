@@ -195,6 +195,7 @@
 
         function submitTest() {
             alert("Test Submitted!");
+            window.location.href = "Sdashboard.php";
         }
 
         function updatePalette() {
@@ -237,17 +238,6 @@
                 }
             }, 1000);
         }
-
-        // function loadSubject(subject) {
-        //     currentSubject = subject;
-        //     questions = subjects[subject];
-        //     selectedAnswers = Array(questions.length).fill(null);
-        //     currentQuestion = 0;
-        //     loadQuestion();
-        //     updatePalette();
-        // }
-
-        // loadSubject(currentSubject);
         startTimer(600);
     </script>
 </body>

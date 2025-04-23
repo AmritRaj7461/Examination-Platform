@@ -1,3 +1,50 @@
+<?php
+session_start();
+include "connection.php";
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+} else {
+    mysqli_set_charset($conn, "utf8mb4");
+}
+
+$user = null;
+
+if (!empty($_SESSION['enrollment_id']) || !empty($_SESSION['email'])) {
+    if (!empty($_SESSION['enrollment_id'])) {
+        $query = "SELECT fname, email FROM users WHERE enrollment_id = ?";
+        $param = $_SESSION['enrollment_id'];
+    } else {
+        $query = "SELECT fname, email FROM users WHERE email = ?";
+        $param = $_SESSION['email'];
+    }
+
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        die("Query preparation failed: " . $conn->error);
+    }
+
+    $stmt->bind_param("s", $param);
+
+    if (!$stmt->execute()) {
+        die("Query execution failed: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+    if ($result && $result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+    } else {
+        echo "<script>alert('No user found for given session data.');</script>";
+    }
+
+    $stmt->close();
+} else {
+    echo "<script>alert('User session not set.');</script>";
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +68,9 @@
             <p class="text-lg mt-1 font-medium ml-3">XampXpress</p>
         </div>
         <div class="flex items-center">
-            <img src="My Pic.jpg" alt="Profile" class="w-10 h-10 ring-2 ring-white border-white">
-            <p class="text-lg mt-1 font-medium ml-3">Student Name</p>
+            <img src="user-avtar-modified.png" alt="Profile" class="w-10 h-10  border-white">
+            <p id="userName" name="name" class="ml-5"><?php echo isset($user) ? htmlspecialchars($user['fname'], ENT_QUOTES, 'UTF-8') : 'Guest'; ?></p>
+
         </div>
     </div>
 
@@ -196,6 +244,7 @@ function loadQuestion() {
 
         function submitTest() {
             alert("Test Submitted!");
+            window.location.href = "Sdashboard.php";
         }
 
         function updatePalette() {

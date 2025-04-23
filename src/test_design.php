@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "connection.php";
+$theme = isset($_SESSION['theme']) ? $_SESSION['theme'] : 'light';
 
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
@@ -69,9 +70,8 @@ $conn->close();
             <li><a href="contact.php">Contact</a></li>
         </ul>
         <div class="relative flex items-center text-center">
-            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
-                data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer mr-2" src="user-avtar-modified.png"
-                alt="User dropdown">
+        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer mr-2" src="<?php echo isset($_SESSION['profile_image']) ? htmlspecialchars($_SESSION['profile_image'], ENT_QUOTES, 'UTF-8') : 'user-avtar-modified.png'; ?>" alt="User dropdown">           
+
             <p id="userName" name="name"><?php echo isset($user) ? htmlspecialchars($user['fname'], ENT_QUOTES, 'UTF-8') : 'Guest'; ?></p>
             <div id="userDropdown"
                 class="z-10 hidden absolute mr-10 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600" style="margin-top: 220px;">

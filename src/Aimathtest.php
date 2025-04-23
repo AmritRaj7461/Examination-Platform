@@ -193,24 +193,9 @@
         }
 
         function submitTest() {
-    let correct = 0, incorrect = 0, skipped = 0;
-
-    questions.forEach((q, i) => {
-        if (selectedAnswers[i] === null) {
-            skipped++;
-        } else if (selectedAnswers[i] === q.correct) {
-            correct++;
-        } else {
-            incorrect++;
+            alert("Test Submitted!");
+            window.location.href = "Sdashboard.php";
         }
-    });
-
-    localStorage.setItem("correct", correct);
-    localStorage.setItem("incorrect", incorrect);
-    locESULTrage.setItem("skipped", skipped);
-
-    window.location.href = "RESULT.html";
-}
 
         function updatePalette() {
             let paletteDiv = document.getElementById("palette");

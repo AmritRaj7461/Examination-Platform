@@ -402,7 +402,7 @@ if (isset($_POST['forgotpass'])) {
 </button>
 
 <!-- Chat Window -->
-<div id="chatWindow" class="hidden fixed bottom-15 right-6 w-80 bg-white border border-gray-300 rounded-lg shadow-xl flex-col z-50" style="mt-5">
+<div id="chatWindow" class="hidden fixed bottom-15 right-6 w-80 bg-white border border-gray-300 rounded-lg shadow-xl flex-col z-50" style="margin-top: 5px">
             <div class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex items-center justify-between">
             <span class="font-semibold">Exam Assistant</span>
             <button onclick="toggleChat()"><i data-lucide="x" class="w-4 h-4"></i></button>
